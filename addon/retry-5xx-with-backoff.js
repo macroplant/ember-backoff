@@ -8,7 +8,7 @@ function retry5xxWithBackoff(callback, retryCountBeforeFailure, initialWaitInMil
 
   var _retryWithCallback = function(callback, retryCount) {
     return callback().catch(function(reason) {
-      if ((reason.status||1)/100 != 5) {
+      if (Math.round((reason.status||1)/100) != 5) {
         throw reason;
       }
       if (retryCount < retryCountBeforeFailure) {
